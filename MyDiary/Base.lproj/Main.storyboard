@@ -25,16 +25,19 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DOE-Nr-ctm" customClass="FancyView" customModule="MyDiary" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="devslopes-logo" translatesAutoresizingMaskIntoConstraints="NO" id="Lik-tc-oYw">
-                                        <rect key="frame" x="112.5" y="3" width="150" height="94"/>
-                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Diary" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G7F-L3-h3J">
+                                        <rect key="frame" x="84" y="14.5" width="207.5" height="71"/>
+                                        <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="50"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.26613623723015245" green="0.40102543804688096" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="0.26842409372329712" green="0.39919668436050415" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="KUK-Z0-rx0"/>
-                                    <constraint firstItem="Lik-tc-oYw" firstAttribute="centerY" secondItem="DOE-Nr-ctm" secondAttribute="centerY" id="epG-XS-wvP"/>
-                                    <constraint firstItem="Lik-tc-oYw" firstAttribute="centerX" secondItem="DOE-Nr-ctm" secondAttribute="centerX" id="r0R-CL-c25"/>
+                                    <constraint firstItem="G7F-L3-h3J" firstAttribute="centerX" secondItem="DOE-Nr-ctm" secondAttribute="centerX" id="VvL-DY-fiU"/>
+                                    <constraint firstItem="G7F-L3-h3J" firstAttribute="centerY" secondItem="DOE-Nr-ctm" secondAttribute="centerY" id="lny-pK-XEd"/>
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="4fY-fS-VWV">
@@ -54,6 +57,9 @@
                                             <constraint firstAttribute="width" constant="100" id="VHh-mN-KuA"/>
                                         </constraints>
                                         <state key="normal" image="f"/>
+                                        <connections>
+                                            <action selector="fbBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rdD-Gy-Qtu"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -114,7 +120,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="devslopes-logo" width="150" height="94"/>
         <image name="f" width="352" height="328"/>
     </resources>
 </document>
