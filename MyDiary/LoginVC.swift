@@ -13,6 +13,8 @@ import Firebase
 
 
 class LoginVC: UIViewController {
+    @IBOutlet weak var emailLbl: FancyField!
+    @IBOutlet weak var passwordLbl: FancyField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +51,27 @@ class LoginVC: UIViewController {
             }
         })
     }
+    
+    @IBAction func signInPressed(_ sender: Any) {
+        
+        if let email = emailLbl.text, let pwd = passwordLbl.text {
+            Auth.auth().signIn(withEmail: email, password: pwd, completion: {(user, error) in
+                if error == nil {
+                 print("User authenticated with Firebase")
+                } else {
+                    Auth.auth().createUser(withEmail: email, password: pwd, completion: {(user,error) in
+                        if error != nil {
+                            print("Unable to create user with Firebase using email")
+                        } else {
+                            print("Successfully created user with Firebase")
+                        }
+                    })
+                }
+            })
+        
+        }
+    }
+
 }
 
 

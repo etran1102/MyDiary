@@ -76,7 +76,7 @@
                                         <rect key="frame" x="0.0" y="60" width="315" height="50"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0JZ-3A-yiQ" customClass="FancyBtn" customModule="MyDiary" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="120" width="315" height="50"/>
@@ -88,6 +88,9 @@
                                         <state key="normal" title="Sign In">
                                             <color key="titleColor" red="0.94323356846262818" green="0.95439806881573797" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="signInPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="b8p-TD-CWa"/>
+                                        </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="If you don't have an account, we will automatically create one for you." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WGf-jo-efW">
                                         <rect key="frame" x="0.0" y="180" width="315" height="50"/>
@@ -113,6 +116,10 @@
                             <constraint firstItem="Rhl-uh-Pq1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="30" id="yoX-qz-Xck"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="emailLbl" destination="9qc-oV-RWd" id="afO-jZ-giE"/>
+                        <outlet property="passwordLbl" destination="RoA-qw-TDu" id="uKl-iG-9jI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
