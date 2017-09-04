@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		6FC21F311F5CEAEE00AC5795 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC21F301F5CEAEE00AC5795 /* MainVC.swift */; };
+		6FC21F331F5D0D6D00AC5795 /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC21F321F5D0D6D00AC5795 /* CircleImageView.swift */; };
+		6FC21F351F5D1E7200AC5795 /* CellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC21F341F5D1E7200AC5795 /* CellView.swift */; };
+		6FC21F381F5DE5E500AC5795 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FC21F371F5DE5E500AC5795 /* DataService.swift */; };
 		6FFF08271F59177800FD1CC7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFF08261F59177800FD1CC7 /* AppDelegate.swift */; };
 		6FFF08291F59177800FD1CC7 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FFF08281F59177800FD1CC7 /* LoginVC.swift */; };
 		6FFF082C1F59177800FD1CC7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FFF082A1F59177800FD1CC7 /* Main.storyboard */; };
@@ -25,6 +28,9 @@
 /* Begin PBXFileReference section */
 		392A6B6AAB24A54608D36652 /* Pods-MyDiary.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyDiary.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyDiary/Pods-MyDiary.debug.xcconfig"; sourceTree = "<group>"; };
 		6FC21F301F5CEAEE00AC5795 /* MainVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
+		6FC21F321F5D0D6D00AC5795 /* CircleImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
+		6FC21F341F5D1E7200AC5795 /* CellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellView.swift; sourceTree = "<group>"; };
+		6FC21F371F5DE5E500AC5795 /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		6FFF08231F59177800FD1CC7 /* MyDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FFF08261F59177800FD1CC7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6FFF08281F59177800FD1CC7 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
@@ -54,6 +60,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6FC21F361F5DE5C500AC5795 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				6FC21F371F5DE5E500AC5795 /* DataService.swift */,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
 		6FFF081A1F59177700FD1CC7 = {
 			isa = PBXGroup;
 			children = (
@@ -75,6 +89,7 @@
 		6FFF08251F59177800FD1CC7 /* MyDiary */ = {
 			isa = PBXGroup;
 			children = (
+				6FC21F361F5DE5C500AC5795 /* Services */,
 				6FFF085F1F5B635500FD1CC7 /* Utilities */,
 				6FFF083C1F591A7100FD1CC7 /* Controller */,
 				6FFF083B1F591A6B00FD1CC7 /* View */,
@@ -103,6 +118,8 @@
 				6FFF08621F5B6DD600FD1CC7 /* RoundButton.swift */,
 				6FFF08641F5B74AF00FD1CC7 /* FancyField.swift */,
 				6FFF08661F5B764200FD1CC7 /* FancyBtn.swift */,
+				6FC21F321F5D0D6D00AC5795 /* CircleImageView.swift */,
+				6FC21F341F5D1E7200AC5795 /* CellView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -286,11 +303,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6FC21F331F5D0D6D00AC5795 /* CircleImageView.swift in Sources */,
 				6FFF08651F5B74AF00FD1CC7 /* FancyField.swift in Sources */,
 				6FFF08291F59177800FD1CC7 /* LoginVC.swift in Sources */,
 				6FFF08631F5B6DD600FD1CC7 /* RoundButton.swift in Sources */,
 				6FFF08271F59177800FD1CC7 /* AppDelegate.swift in Sources */,
+				6FC21F381F5DE5E500AC5795 /* DataService.swift in Sources */,
 				6FFF085E1F5B62D300FD1CC7 /* FancyView.swift in Sources */,
+				6FC21F351F5D1E7200AC5795 /* CellView.swift in Sources */,
 				6FC21F311F5CEAEE00AC5795 /* MainVC.swift in Sources */,
 				6FFF08611F5B637300FD1CC7 /* Constants.swift in Sources */,
 				6FFF08671F5B764200FD1CC7 /* FancyBtn.swift in Sources */,
