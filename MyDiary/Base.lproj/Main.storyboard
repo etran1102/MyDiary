@@ -119,11 +119,44 @@
                     <connections>
                         <outlet property="emailLbl" destination="9qc-oV-RWd" id="afO-jZ-giE"/>
                         <outlet property="passwordLbl" destination="RoA-qw-TDu" id="uKl-iG-9jI"/>
+                        <segue destination="rok-Gd-bUX" kind="show" identifier="goToMainVC" id="I8I-vU-UHB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="117.59999999999999" y="123.68815592203899"/>
+        </scene>
+        <!--MainVC-->
+        <scene sceneID="MGY-Ef-YIw">
+            <objects>
+                <viewController id="rok-Gd-bUX" customClass="MainVC" customModule="MyDiary" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hoc-xv-Ylj"/>
+                        <viewControllerLayoutGuide type="bottom" id="62V-hN-Hzk"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="m3c-e4-bWO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RCo-sx-PBJ">
+                                <rect key="frame" x="74" y="301" width="227" height="64"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                <state key="normal" title="Sign Out"/>
+                                <connections>
+                                    <action selector="SIgnOutPressed:" destination="rok-Gd-bUX" eventType="touchUpInside" id="LaA-j3-Jhe"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="RCo-sx-PBJ" firstAttribute="centerX" secondItem="m3c-e4-bWO" secondAttribute="centerX" id="GgE-xf-1Cb"/>
+                            <constraint firstItem="RCo-sx-PBJ" firstAttribute="centerY" secondItem="m3c-e4-bWO" secondAttribute="centerY" id="P1j-cv-du6"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bzs-Ah-zvE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="896.79999999999995" y="123.68815592203899"/>
         </scene>
     </scenes>
     <resources>

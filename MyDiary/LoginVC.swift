@@ -10,7 +10,7 @@ import UIKit
 import FBSDKCoreKit
 import FBSDKLoginKit
 import Firebase
-
+import SwiftKeychainWrapper
 
 class LoginVC: UIViewController {
     @IBOutlet weak var emailLbl: FancyField!
@@ -18,6 +18,14 @@ class LoginVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        if let _ = KeychainWrapper.standard.string(forKey: KEY_UID) {
+            performSegue(withIdentifier: "goToMainVC", sender: nil)
+        }
         
     }
     
@@ -48,6 +56,9 @@ class LoginVC: UIViewController {
                 print("Unable to authenticate with Firebase")
             } else {
                 print("Successfully authenticated with Firebase")
+                if let user = user{
+                    self.completeSignIn(id: user.uid)
+                }
             }
         })
     }
@@ -58,18 +69,31 @@ class LoginVC: UIViewController {
             Auth.auth().signIn(withEmail: email, password: pwd, completion: {(user, error) in
                 if error == nil {
                  print("User authenticated with Firebase")
+                    if let user = user {
+                        self.completeSignIn(id: user.uid)
+                    }
                 } else {
                     Auth.auth().createUser(withEmail: email, password: pwd, completion: {(user,error) in
                         if error != nil {
                             print("Unable to create user with Firebase using email")
                         } else {
                             print("Successfully created user with Firebase")
+                            if let user = user {
+                                self.completeSignIn(id: user.uid)
+                            }
                         }
                     })
                 }
             })
         
         }
+    }
+    
+    func completeSignIn(id: String) {
+        let keychainResult = KeychainWrapper.standard.set(id, forKey: KEY_UID)
+        print("Data saved to keychain \(keychainResult)")
+        performSegue(withIdentifier: "goToMainVC", sender: nil)
+        
     }
 
 }
