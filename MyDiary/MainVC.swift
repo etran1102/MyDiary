@@ -10,18 +10,25 @@ import UIKit
 import Firebase
 import SwiftKeychainWrapper
 
-class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView!    
+    
+    @IBOutlet weak var addImage: RoundButton!
     
     var posts = [Post]()
-        
+    var imagePicker: UIImagePickerController!
         
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.delegate = self
         tableView.dataSource = self
+        
+        imagePicker = UIImagePickerController()
+        imagePicker.allowsEditing = true
+        imagePicker.delegate = self
+        
         
         DataService.ds.REF_POSTS.observe(.value, with: {(snapshot) in
             if let snapshot = snapshot.children.allObjects as? [DataSnapshot] {
@@ -41,7 +48,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         
     }
-    
+   
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -64,6 +71,21 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
     }
     
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: Any]) {
+        if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
+            addImage.setImage(image, for: .normal)
+        } else {
+            print("A valid image wasn't selected")
+            
+        }
+        imagePicker.dismiss(animated: true, completion: nil)
+    }
+    
+    
+    
+    @IBAction func addImagePressed(_ sender: Any) {
+        present(imagePicker, animated: true, completion: nil)
+    }
     
     @IBAction func SignOutTapped(_ sender: Any) {
         let keychainResult = KeychainWrapper.standard.removeObject(forKey: KEY_UID)

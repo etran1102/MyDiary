@@ -177,14 +177,18 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="98f-N5-paw">
                                         <rect key="frame" x="8" y="-14" width="327" height="88"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add-image" translatesAutoresizingMaskIntoConstraints="NO" id="jB2-GQ-FEh" customClass="CircleImageView" customModule="MyDiary" customModuleProvider="target">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Dl-gR-w9Q" customClass="FancyBtn" customModule="MyDiary" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="19" width="50" height="50"/>
-                                                <color key="backgroundColor" red="0.20783340930938721" green="0.31899595260620117" blue="0.79981988668441772" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.2086208164691925" green="0.31899455189704895" blue="0.79981851577758789" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="50" id="qfl-YG-AIB"/>
-                                                    <constraint firstAttribute="height" constant="50" id="zJt-nP-pWe"/>
+                                                    <constraint firstAttribute="width" constant="50" id="8Qh-aD-cWq"/>
+                                                    <constraint firstAttribute="height" constant="50" id="tWO-Ec-Mst"/>
                                                 </constraints>
-                                            </imageView>
+                                                <state key="normal" image="add-image"/>
+                                                <connections>
+                                                    <action selector="addImagePressed:" destination="rok-Gd-bUX" eventType="touchUpInside" id="ejt-7o-CjF"/>
+                                                </connections>
+                                            </button>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="d3z-Yt-faO">
                                                 <rect key="frame" x="60" y="29" width="207" height="30"/>
                                                 <nil key="textColor"/>
@@ -237,6 +241,7 @@
                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add-image" translatesAutoresizingMaskIntoConstraints="NO" id="Xjh-Ac-15k" customClass="CircleImageView" customModule="MyDiary" customModuleProvider="target">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                                                     <color key="backgroundColor" red="0.20783340930938721" green="0.31899595260620117" blue="0.79981988668441772" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                                    <gestureRecognizers/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="width" constant="50" id="VI6-jC-BbW"/>
                                                                                         <constraint firstAttribute="height" constant="50" id="hTJ-kO-IoK"/>
@@ -256,6 +261,7 @@
                                                                                     </constraints>
                                                                                 </imageView>
                                                                             </subviews>
+                                                                            <gestureRecognizers/>
                                                                         </stackView>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="roy-4W-Rmx">
                                                                             <rect key="frame" x="0.0" y="60" width="343" height="312"/>
@@ -343,6 +349,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addImage" destination="1Dl-gR-w9Q" id="v64-TJ-6nU"/>
                         <outlet property="tableView" destination="v5X-8I-han" id="GDT-YX-Qrd"/>
                     </connections>
                 </viewController>
