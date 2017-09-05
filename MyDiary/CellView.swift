@@ -16,16 +16,22 @@ class CellView: UITableViewCell {
     @IBOutlet weak var textFieldLbl: UITextView!
     @IBOutlet weak var numberOfLikeLbl: UILabel!
     
+    var post: Post!
+    
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        
+                
+    }
+    
+    func configureCell(post: Post) {
+        self.post = post
+        self.textFieldLbl.text = post.description
+        self.numberOfLikeLbl.text = "\(post.likes)"
         
         
     }
-    
-    
     
     
 
