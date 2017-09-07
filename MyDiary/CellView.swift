@@ -35,41 +35,44 @@ class CellView: UITableViewCell {
     //configure the cell.
     func configureCell(post: Post, image: UIImage? = nil) {
         self.post = post
-        //set text field and like label in the cell
-        likeRef = DataService.ds.REF_CURRENT_USER.child("likes").child(post.postKey)
-        self.textFieldLbl.text = post.description
-        if let like = post.likes {
-            self.numberOfLikeLbl.text = "\(like)"
-        }
+        if post.hiddenPost == false {
+            //set text field and like label in the cell
+            likeRef = DataService.ds.REF_CURRENT_USER.child("likes").child(post.postKey)
+            self.textFieldLbl.text = post.description
+            if let like = post.likes {
+                self.numberOfLikeLbl.text = "\(like)"
+            }
         
-        if image != nil {
-            self.picLbl.image = image
-        } else {
-            //download image from firebase
-            let ref = Storage.storage().reference(forURL: post.imageUrl)
-            ref.getData(maxSize: 2 * 1024 * 1024, completion: { (data, error) in
-                if error != nil {
-                    print("Unable to download image from Firebase")
-                } else {
-                    print("Succesfully download image from Firebase")
-                    if let imageData = data {
-                        if let image = UIImage(data: imageData){
-                            self.picLbl.image = image
-                            MainVC.imageCache.setObject(image, forKey: post.imageUrl as NSString)
+            if image != nil {
+                self.picLbl.image = image
+            } else {
+                //download image from firebase
+                let ref = Storage.storage().reference(forURL: post.imageUrl)
+                ref.getData(maxSize: 2 * 1024 * 1024, completion: { (data, error) in
+                    if error != nil {
+                        print("Unable to download image from Firebase")
+                    } else {
+                        print("Succesfully download image from Firebase")
+                        if let imageData = data {
+                            if let image = UIImage(data: imageData){
+                                self.picLbl.image = image
+                                MainVC.imageCache.setObject(image, forKey: post.imageUrl as NSString)
+                            }
                         }
                     }
+                })
+            }
+        
+            //change the heart like button
+        likeRef.observeSingleEvent(of: .value, with: {(snapshot) in
+                if let _ = snapshot.value as? NSNull {
+                    self.likeImage.image = UIImage(named: "empty-heart")
+                } else {
+                    self.likeImage.image = UIImage(named: "filled-heart")
                 }
             })
-        }
         
-        //change the heart like button
-        likeRef.observeSingleEvent(of: .value, with: {(snapshot) in
-            if let _ = snapshot.value as? NSNull {
-                self.likeImage.image = UIImage(named: "empty-heart")
-            } else {
-                self.likeImage.image = UIImage(named: "filled-heart")
-            }
-        })
+        }
     }
     
     //when like button is pressed. It will toggle between the images.
@@ -86,6 +89,12 @@ class CellView: UITableViewCell {
             }
         })
     }
+    
+    //when the flag button is press
+    @IBAction func flagBtnPress(_ sender: UIButton) {
+        self.post.setFlagToTrue()
+    }
+    
 }
 
 

@@ -44,7 +44,9 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                     if let postDict = snap.value as? Dictionary<String, Any> {
                         let key = snap.key
                         let post = Post(postKey: key, postData: postDict)
-                        self.posts.append(post)
+                        if post.hiddenPost == false {
+                            self.posts.append(post)
+                        }
                     }
                 }
             }
@@ -132,7 +134,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
             "description": statusText.text!,
             "imageUrl": imageUrl,
             "likes": 0,
-            "hidden": false
+            "hiddenPost": false
         ]
         
         let firebasePost = DataService.ds.REF_POSTS.childByAutoId()
@@ -145,6 +147,7 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         self.posts.removeAll(keepingCapacity: true)
         self.tableView.reloadData()
     }
+    
     
     //when the add image is pressed
     @IBAction func addImagePressed(_ sender: Any) {

@@ -15,6 +15,7 @@ class Post {
     private var _description: String!
     private var _imageUrl: String!
     private var _likes: Int!
+    private var _hiddenPost: Bool!
     private var _postKey: String!
     private var _postRef: DatabaseReference!
     
@@ -31,14 +32,19 @@ class Post {
         return _likes
     }
     
+    var hiddenPost: Bool? {
+        return _hiddenPost
+    }
+    
     var postKey: String {
         return _postKey
     }
     
-    init(description: String, imageUrl: String, likes: Int) {
+    init(description: String, imageUrl: String, likes: Int, hiddenPost: Bool) {
         self._description = description
         self._imageUrl = imageUrl
         self._likes = likes
+        self._hiddenPost = hiddenPost
     }
     
     init(postKey: String, postData: Dictionary<String, Any>) {
@@ -57,6 +63,10 @@ class Post {
             self._likes = likes
         }
         
+        if let hiddenPost = postData["hiddenPost"] as? Bool {
+            self._hiddenPost = hiddenPost
+        }
+        
         _postRef = DataService.ds.REF_POSTS.child(_postKey)
         
     }
@@ -69,5 +79,11 @@ class Post {
             _likes = _likes - 1
         }
         _postRef.child("likes").setValue(_likes)
+    }
+    
+    //change the flag to hide the post
+    func setFlagToTrue() {
+        _hiddenPost = true
+        _postRef.child("hiddenPost").setValue(_hiddenPost)
     }
 }
