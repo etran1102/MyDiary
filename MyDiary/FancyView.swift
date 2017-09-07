@@ -10,6 +10,7 @@ import UIKit
 
 class FancyView: UIView {
 
+    //create a shadow for UIView
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -18,10 +19,5 @@ class FancyView: UIView {
         layer.shadowRadius = 3
         layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
         layer.cornerRadius = 2.0
-        
-        
     }
-    
-    
-    
 }

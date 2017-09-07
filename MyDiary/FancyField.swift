@@ -10,6 +10,7 @@ import UIKit
 
 class FancyField: UITextField {
 
+    //create a shadow for text field
     override func awakeFromNib() {
         superview?.awakeFromNib()
         

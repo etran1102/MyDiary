@@ -13,6 +13,7 @@ class FancyBtn: UIButton {
     override func awakeFromNib() {
         superview?.awakeFromNib()
         
+        //create shadow for the btn and make certain corner radius
         layer.shadowColor = UIColor(red: SHADOW_GRAY, green: SHADOW_GRAY, blue: SHADOW_GRAY, alpha: 0.8).cgColor
         layer.shadowOpacity = 0.8
         layer.shadowRadius = 5.0
