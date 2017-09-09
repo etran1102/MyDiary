@@ -12,7 +12,6 @@ import Firebase
 class CellView: UITableViewCell {
 
     @IBOutlet weak var profileImg: UIImageView!
-    @IBOutlet weak var usernameLbl: UILabel!
     @IBOutlet weak var picLbl: UIImageView!
     @IBOutlet weak var textFieldLbl: UITextView!
     @IBOutlet weak var numberOfLikeLbl: UILabel!
@@ -21,6 +20,12 @@ class CellView: UITableViewCell {
     //declare variables
     var post: Post!
     var likeRef: DatabaseReference!
+    var userRef: DatabaseReference!
+    var descString: String!
+    var filteredString: String!
+    var postUser: PostUser!
+    var userKey: String!
+    var postKey: String!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -38,7 +43,9 @@ class CellView: UITableViewCell {
         if post.hiddenPost == false {
             //set text field and like label in the cell
             likeRef = DataService.ds.REF_CURRENT_USER.child("likes").child(post.postKey)
-            self.textFieldLbl.text = post.description
+            filteredString = post.description
+            textFilter(string: filteredString)
+            self.textFieldLbl.text = descString
             if let like = post.likes {
                 self.numberOfLikeLbl.text = "\(like)"
             }
@@ -90,11 +97,47 @@ class CellView: UITableViewCell {
         })
     }
     
+    func textFilter(string: String!) {        
+        descString = string.replacingOccurrences(of: "fuck", with: "fu**")
+        descString = descString.replacingOccurrences(of: "bullshit", with: "bullsh**")
+        descString = descString.replacingOccurrences(of: "bitch", with: "bit**")
+        descString = descString.replacingOccurrences(of: "bitches", with: "bit****")
+        descString = descString.replacingOccurrences(of: "cock", with: "co**")
+        descString = descString.replacingOccurrences(of: "cocks", with: "co***")
+        descString = descString.replacingOccurrences(of: "shit", with: "sh**")
+        descString = descString.replacingOccurrences(of: "cunt", with: "cu**")
+        descString = descString.replacingOccurrences(of: "nigger", with: "ni****")
+        descString = descString.replacingOccurrences(of: "ass", with: "a**")
+    }
+    
     //when the flag button is press
     @IBAction func flagBtnPress(_ sender: UIButton) {
         self.post.setFlagToTrue()
     }
     
+    //upload data to firebase
+    @IBAction func blockUserPressed(_ sender: UIButton) {
+        print("\(post.postKey) AND \(post.user)")
+        
+        userKey = NSString(string: post.user) as String
+        postKey = NSString(string: post.postKey) as String
+        
+        DataService.ds.REF_USERS.observe( .value, with: {(snapshot) in
+            if let snapshot = snapshot.children.allObjects as? [DataSnapshot] {
+                print("SNAP: \(snapshot)")
+                for snap in snapshot {
+                    if let userDict = snap.value as? Dictionary<String, Any> {
+                        let key = snap.key
+                        if self.userKey == key {
+                            let user = PostUser(userKey: key, userData: userDict)
+                            user.blockStatus(postKey: self.postKey, userKey: self.userKey)
+                        }
+                    }
+                }
+                
+            }
+        })
+    }
 }
 
 

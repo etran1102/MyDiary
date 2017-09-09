@@ -312,8 +312,19 @@ UNDER NO CIRCUMSTANCES HSALL ERICK TRAN OR ITS AFFILIATES, PARTNERS, SUPPLIERS O
                                                                                         <action selector="flagBtnPress:" destination="igY-5T-9Ro" eventType="touchUpInside" id="6IE-19-kpo"/>
                                                                                     </connections>
                                                                                 </button>
+                                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="26X-PM-iyn">
+                                                                                    <rect key="frame" x="120" y="0.0" width="50" height="50"/>
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="height" constant="50" id="Dfz-Aw-SyS"/>
+                                                                                        <constraint firstAttribute="width" constant="50" id="GmT-vi-Ruv"/>
+                                                                                    </constraints>
+                                                                                    <state key="normal" title="Block"/>
+                                                                                    <connections>
+                                                                                        <action selector="blockUserPressed:" destination="igY-5T-9Ro" eventType="touchUpInside" id="pgl-1O-tv6"/>
+                                                                                    </connections>
+                                                                                </button>
                                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty-heart" translatesAutoresizingMaskIntoConstraints="NO" id="y3y-oy-4OP">
-                                                                                    <rect key="frame" x="120" y="0.0" width="183" height="50"/>
+                                                                                    <rect key="frame" x="180" y="0.0" width="123" height="50"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="50" id="FTP-tm-HsD"/>
                                                                                     </constraints>
@@ -378,9 +389,9 @@ UNDER NO CIRCUMSTANCES HSALL ERICK TRAN OR ITS AFFILIATES, PARTNERS, SUPPLIERS O
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="PicLbl" destination="roy-4W-Rmx" id="7oF-Z7-gFK"/>
                                             <outlet property="likeImage" destination="y3y-oy-4OP" id="dOl-6S-ZMZ"/>
                                             <outlet property="numberOfLikeLbl" destination="BIU-HP-1UH" id="lLN-M8-Rk1"/>
+                                            <outlet property="picLbl" destination="roy-4W-Rmx" id="vAo-rk-7xq"/>
                                             <outlet property="profileImg" destination="Xjh-Ac-15k" id="fZt-gM-0ns"/>
                                             <outlet property="textFieldLbl" destination="P6m-dA-Bp0" id="dX4-oz-8qf"/>
                                         </connections>
@@ -406,7 +417,6 @@ UNDER NO CIRCUMSTANCES HSALL ERICK TRAN OR ITS AFFILIATES, PARTNERS, SUPPLIERS O
                     </view>
                     <connections>
                         <outlet property="addImage" destination="1Dl-gR-w9Q" id="v64-TJ-6nU"/>
-                        <outlet property="postBtn" destination="9Tu-Di-2nX" id="Gzs-Xz-H18"/>
                         <outlet property="statusText" destination="d3z-Yt-faO" id="GzM-zZ-vfw"/>
                         <outlet property="tableView" destination="v5X-8I-han" id="GDT-YX-Qrd"/>
                     </connections>

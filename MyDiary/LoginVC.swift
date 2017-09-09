@@ -33,18 +33,29 @@ class LoginVC: UIViewController {
         
         let facebookLogin = FBSDKLoginManager()
         
-        facebookLogin.logIn(withReadPermissions: ["email"], from: self) {(result, error) in if error != nil {
-            print("Unable to authenticate with Facebook")
+        let alert = UIAlertController(title: "Facebook Sign-In", message: "To use this feature you MUST have facebook app download and sign in. Do you have it download and sign in?", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: {(action) in
+        
+            facebookLogin.logIn(withReadPermissions: ["email"], from: self) {(result, error) in if error != nil {
             
-        } else if result?.isCancelled == true {
-            print("User cancelled Facebook authentication")
-        } else {
-            print("Succesfully authenticated with Facebook")
-            let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+                print("Unable to authenticate with Facebook")
             
-            self.firebaseAuth(credential)
+                } else if result?.isCancelled == true {
+                    print("User cancelled Facebook authentication")
+                } else {
+                    print("Succesfully authenticated with Facebook")
+                    let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+        
+                    self.firebaseAuth(credential)
+                }
             }
-        }
+            
+        }))
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: {(action) in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alert, animated: true, completion: nil)
+        
     }
     
     //authorize with firebase.
@@ -54,8 +65,11 @@ class LoginVC: UIViewController {
                 print("Unable to authenticate with Firebase")
             } else {
                 print("Successfully authenticated with Firebase")
-                if let user = user{
-                    let userData = ["provider": credential.provider]
+                if let user = user {
+                    let userData = [
+                        "provider": user.providerID,
+                        "blockUser": "false"
+                    ]
                     self.completeSignIn(id: user.uid, userData: userData)
                 }
             }
@@ -70,7 +84,10 @@ class LoginVC: UIViewController {
                 if error == nil {
                  print("User authenticated with Firebase")
                     if let user = user {
-                        let userData = ["provider": user.providerID]
+                        let userData = [
+                            "provider": user.providerID,
+                            "blockUser": "false"
+                        ]
                         self.completeSignIn(id: user.uid, userData: userData)
                     }
                 } else {
@@ -81,7 +98,10 @@ class LoginVC: UIViewController {
                         } else {
                             print("Successfully created user with Firebase")
                             if let user = user {
-                                let userData = ["proveider": user.providerID]
+                                let userData: Dictionary<String, String> = [
+                                    "provider": user.providerID,
+                                    "blockUser": "false"
+                                ]
                                 self.completeSignIn(id: user.uid, userData: userData)
                             }
                         }
@@ -97,9 +117,19 @@ class LoginVC: UIViewController {
         let keychainResult = KeychainWrapper.standard.set(id, forKey: KEY_UID)
         print("Data saved to keychain \(keychainResult)")
         performSegue(withIdentifier: "goToMainVC", sender: nil)
-        
     }
-
+    
+    //create alert for missing field
+    func createAlert (title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.default, handler: {(action) in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        alert.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.default, handler: {(action) in
+            alert.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
 }
 
 

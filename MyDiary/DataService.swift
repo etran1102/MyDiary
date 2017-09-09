@@ -22,9 +22,7 @@ class DataService {
     private var _REF_BASE = DB_BASE
     private var _REF_POSTS = DB_BASE.child("posts")
     private var _REF_USERS = DB_BASE.child("users")
-    private var _REF_STORAGE_POST_IMAGE = STORAGE_BASE.child("pics")
-    
-    
+    private var _REF_STORAGE_POST_IMAGE = STORAGE_BASE.child("pics")      
     
     //init them
     var REF_BASE: DatabaseReference {
@@ -48,6 +46,12 @@ class DataService {
         let uid = KeychainWrapper.standard.string(forKey: KEY_UID)
         let user = REF_USERS.child(uid!)
         return user
+    }
+    
+    var REF_CURRENT_POST: DatabaseReference {
+        let uid = KeychainWrapper.standard.string(forKey: KEY_UID)
+        let post = REF_POSTS.child(uid!)
+        return post
     }
     
     //create firebase database user

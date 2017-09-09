@@ -15,15 +15,18 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     //connect all the UI
     @IBOutlet weak var tableView: UITableView!    
     @IBOutlet weak var addImage: FancyBtn!
-    @IBOutlet weak var postBtn: FancyBtn!
     @IBOutlet weak var statusText: UITextField!
     
     //declare ariables
     static var imageCache: NSCache<NSString, UIImage> = NSCache()
     var posts = [Post]()
+    var user = [PostUser]()
     var imagePicker: UIImagePickerController!
     var imageSelected = false
     
+    var ref: DatabaseReference!
+
+        
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,10 +43,13 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         DataService.ds.REF_POSTS.observe(.value, with: {(snapshot) in
             self.posts.removeAll(keepingCapacity: true)
             if let snapshot = snapshot.children.allObjects as? [DataSnapshot] {
+                //print("SNAP: \(snapshot)")
                 for snap in snapshot {
                     if let postDict = snap.value as? Dictionary<String, Any> {
                         let key = snap.key
                         let post = Post(postKey: key, postData: postDict)
+                        //let text = post.description
+                        //print("TEXST TEXT: \(text)")
                         if post.hiddenPost == false {
                             self.posts.append(post)
                         }
@@ -52,8 +58,6 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
             }
             self.tableView.reloadData()
         })
-        
-        
     }
    
     // set number of sections
@@ -122,7 +126,6 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
                         self.postToFirebase(imageUrl: url)
                     }
                 }
-            
             }
             statusText.endEditing(true)
         }
@@ -130,22 +133,59 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
     
     //upload data to firebase
     func postToFirebase(imageUrl:String) {
-        let post: Dictionary<String, Any> = [
-            "description": statusText.text!,
-            "imageUrl": imageUrl,
-            "likes": 0,
-            "hiddenPost": false
-        ]
         
-        let firebasePost = DataService.ds.REF_POSTS.childByAutoId()
-        firebasePost.setValue(post)
+        let userID: String = (Auth.auth().currentUser?.uid)!
+        var blockUserValue: String! = "false"
+        var postKey: String = ""
         
-        statusText.text = ""
-        imageSelected = false
-        addImage.setImage(UIImage(named: "add-image"), for: .normal)
+        DataService.ds.REF_USERS.observe( .value, with: {(snapshot) in
+            if let snapshot = snapshot.children.allObjects as? [DataSnapshot] {
+                print("SNAP: \(snapshot)")
+                for snap in snapshot {
+                    if let userDict = snap.value as? Dictionary<String, Any> {
+                        let key = snap.key
+                        if userID == key {
+                            let user = PostUser(userKey: key, userData: userDict)
+                            blockUserValue = user.blockUser
+                            print("TEST TEST: \(blockUserValue!)")
+                            if blockUserValue == "true" {
+                                DataService.ds.REF_POSTS.child(postKey).removeValue()
+                                //block message
+                                postKey = ""
+                                self.createAlert(title: "Blocked From Post", message: "You have been blocked for posting inappropriate content. Your account will be delete in 24 hrs")
+                            }
+                        }
+                    }
+                }
+                
+            }
+        }) {(error) in
+        print(error.localizedDescription)
+        }
         
-        self.posts.removeAll(keepingCapacity: true)
-        self.tableView.reloadData()
+        //create post
+            print("POST KEY PAY ATTENTION: \(userID)")
+            let post: Dictionary<String, Any> = [
+                "description": self.statusText.text!,
+                "imageUrl": imageUrl,
+                "likes": 0,
+                "hiddenPost": false,
+                "user": userID,
+                "userBlock": "false"
+            ]
+            
+            if self.statusText.text != nil {
+                let firebasePost = DataService.ds.REF_POSTS.childByAutoId()
+                postKey = firebasePost.key
+                firebasePost.setValue(post)
+            }
+            self.statusText.text = ""
+            self.imageSelected = false
+            self.addImage.setImage(UIImage(named: "add-image"), for: .normal)
+            
+            self.posts.removeAll(keepingCapacity: true)
+        
+        self.tableView.reloadData()        
     }
     
     
@@ -174,4 +214,5 @@ class MainVC: UIViewController, UITableViewDelegate, UITableViewDataSource, UIIm
         }))
         self.present(alert, animated: true, completion: nil)
     }
+    
 }

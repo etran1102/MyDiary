@@ -19,8 +19,5 @@ class CircleImageView: UIImageView {
         layer.shadowRadius = 5
         layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
         layer.cornerRadius = 20.0
-    }
-
-    
-    
+    }    
 }
